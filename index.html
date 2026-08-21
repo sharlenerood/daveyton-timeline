@@ -1,363 +1,649 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="description" content="The Daveyton muti murders — a three-part News24 podcast investigation. Interactive timeline of events.">
-<title>The Daveyton muti murders — Timeline | News24</title>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+        <meta name="description" content="The Daveyton muti murders — a three-part News24 podcast investigation. Interactive timeline of events.">
+        <title>The Daveyton muti murders — Timeline | News24</title>
+        <style>
+            *, *::before, *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
 
-  :root {
-    --n24-red: #dd1f26;
-    --n24-blue: #21418d;
-    --grey-strap: #8e8e8e;
-    --n24-dark: #1a1a1a;
-    --bg: #f5f5f5;
-    --card-bg: #ffffff;
-    --border: #e2e2e2;
-    --text: #1a1a1a;
-    --text-mid: #444444;
-    --text-light: #777777;
-    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  }
+            :root {
+                --n24-red: #dd1f26;
+                --n24-blue: #21418d;
+                --grey-strap: #8e8e8e;
+                --n24-dark: #1a1a1a;
+                --bg: #f5f5f5;
+                --card-bg: #ffffff;
+                --border: #e2e2e2;
+                --text: #1a1a1a;
+                --text-mid: #444444;
+                --text-light: #777777;
+                --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            }
 
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+            html {
+                scroll-behavior: smooth;
+                -webkit-text-size-adjust: 100%;
+            }
 
-  body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-  }
+            body {
+                font-family: var(--font);
+                background: var(--bg);
+                color: var(--text);
+                line-height: 1.5;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                overflow-x: hidden;
+            }
 
-  .progress-bar {
-    position: fixed; top: 0; left: 0;
-    height: 3px; width: 0%;
-    background: var(--n24-red);
-    z-index: 999;
-    transition: width 0.08s linear;
-  }
+            .progress-bar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 3px;
+                width: 0%;
+                background: var(--n24-red);
+                z-index: 999;
+                transition: width 0.08s linear;
+            }
 
-  /* MASTHEAD */
-  .masthead {
-    background: var(--grey-strap);
-    padding: 10px 20px;
-  }
-  .masthead-inner {
-    display: flex; align-items: center;
-    max-width: 680px; margin: 0 auto;
-  }
-  .masthead svg { height: 26px; width: auto; display: block; }
+            /* MASTHEAD */
+            .masthead {
+                background: var(--grey-strap);
+                padding: 10px 20px;
+            }
 
-  /* HERO */
-  .hero {
-    background: var(--card-bg);
-    padding: 32px 20px 24px;
-    max-width: 680px; margin: 0 auto;
-    border-bottom: 1px solid var(--border);
-  }
-  .hero-tag {
-    font-size: 11px; font-weight: 700;
-    letter-spacing: 2.5px; text-transform: uppercase;
-    color: var(--n24-red); margin-bottom: 10px;
-  }
-  .hero-title {
-    font-size: 30px; font-weight: 800;
-    line-height: 1.1; color: var(--n24-dark);
-    letter-spacing: -0.02em; margin-bottom: 4px;
-  }
-  .hero-subtitle {
-    font-size: 16px; font-weight: 600;
-    color: var(--text-light); margin-bottom: 14px;
-  }
-  .hero-intro {
-    font-size: 14px; line-height: 1.6;
-    color: var(--text-mid);
-    border-left: 3px solid var(--n24-red);
-    padding-left: 14px;
-  }
+            .masthead-inner {
+                display: flex;
+                align-items: center;
+                max-width: 680px;
+                margin: 0 auto;
+            }
 
-  /* TABS */
-  .tabs {
-    position: sticky; top: 0; z-index: 100;
-    background: var(--card-bg);
-    border-bottom: 1px solid var(--border);
-    overflow-x: auto; -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tabs-inner {
-    display: flex; gap: 8px; padding: 10px 16px;
-    max-width: 680px; margin: 0 auto;
-    width: max-content; min-width: 100%;
-  }
-  .tab {
-    white-space: nowrap; padding: 7px 14px;
-    border-radius: 20px; border: 1.5px solid #d5d5d5;
-    background: var(--card-bg); font-family: var(--font);
-    font-size: 12.5px; font-weight: 600;
-    color: var(--text-mid); cursor: pointer;
-    transition: all 0.2s ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .tab:active { transform: scale(0.96); }
-  .tab.active {
-    color: #fff; border-color: var(--tab-color);
-    background: var(--tab-color);
-  }
+            .masthead svg {
+                height: 26px;
+                width: auto;
+                display: block;
+            }
 
-  /* TIMELINE */
-  .timeline-container { padding: 28px 0 48px; }
-  .timeline {
-    position: relative; max-width: 600px;
-    margin: 0 auto; padding: 0 20px 0 44px;
-  }
-  .timeline::before {
-    content: ''; position: absolute;
-    left: 28px; top: 0; bottom: 0;
-    width: 2px; background: var(--line-color, #d0d0d0);
-    transition: background 0.3s ease;
-  }
+            /* HERO */
+            .hero {
+                background: var(--card-bg);
+                padding: 32px 20px 24px;
+                max-width: 680px;
+                margin: 0 auto;
+                border-bottom: 1px solid var(--border);
+            }
 
-  /* EPISODE HEADER */
-  .episode-header {
-    margin-bottom: 24px; padding-bottom: 14px;
-    border-bottom: 2px solid var(--ep-color);
-  }
-  .episode-header .ep-num {
-    font-size: 11px; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase;
-    color: var(--ep-color); margin-bottom: 3px;
-  }
-  .episode-header .ep-name {
-    font-size: 24px; font-weight: 800; color: var(--n24-dark);
-  }
+            .hero-tag {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 2.5px;
+                text-transform: uppercase;
+                color: var(--n24-red);
+                margin-bottom: 10px;
+            }
 
-  /* EVENT CARD */
-  .event {
-    position: relative; margin-bottom: 14px;
-    padding: 16px 18px; background: linear-gradient(135deg, rgba(var(--ep-rgb), 0.04), var(--card-bg) 50%);
-    border-radius: 6px; border-left: 3px solid var(--ep-color);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    opacity: 0; transform: translateY(16px);
-    transition: opacity 0.45s ease, transform 0.45s ease;
-  }
-  .event.visible { opacity: 1; transform: translateY(0); }
+            .hero-title {
+                font-size: 30px;
+                font-weight: 800;
+                line-height: 1.1;
+                color: var(--n24-dark);
+                letter-spacing: -0.02em;
+                margin-bottom: 4px;
+            }
 
-  .event::before {
-    content: ''; position: absolute;
-    left: -22px; top: 16px;
-    width: 14px; height: 14px; border-radius: 50%;
-    background: var(--ep-color); border: 2px solid var(--bg);
-    z-index: 1;
-  }
+            .hero-subtitle {
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--text-light);
+                margin-bottom: 14px;
+            }
 
-  .event.key {
-    border-left-width: 4px;
-  }
+            .hero-intro {
+                font-size: 14px;
+                line-height: 1.6;
+                color: var(--text-mid);
+                border-left: 3px solid var(--n24-red);
+                padding-left: 14px;
+            }
 
+            /* TABS */
+            .tabs {
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                background: var(--card-bg);
+                border-bottom: 1px solid var(--border);
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
 
-  .event-date {
-    font-size: 15px; font-weight: 700;
-    color: var(--ep-color); margin-bottom: 3px; line-height: 1.3;
-  }
-  .event-text { font-size: 16px; line-height: 1.55; color: var(--text-mid); }
+            .tabs::-webkit-scrollbar {
+                display: none;
+            }
 
-  /* FOOTER */
-  .footer { background: var(--grey-strap); padding: 20px; text-align: center; }
-  .footer-inner { max-width: 680px; margin: 0 auto; }
-  .footer svg { height: 20px; width: auto; }
-  .footer-text {
-    display: block; font-size: 10px; color: #ccc;
-    margin-top: 6px; letter-spacing: 1.5px; text-transform: uppercase;
-  }
+            .tabs-inner {
+                display: flex;
+                gap: 8px;
+                padding: 10px 16px;
+                max-width: 680px;
+                margin: 0 auto;
+                width: max-content;
+                min-width: 100%;
+            }
 
-  /* DESKTOP */
-  @media (min-width: 680px) {
-    .hero { padding: 48px 24px 32px; }
-    .hero-title { font-size: 40px; }
-    .hero-subtitle { font-size: 18px; }
-    .hero-intro { font-size: 15px; max-width: 540px; }
-    .timeline { padding-left: 64px; }
-    .timeline::before { left: 36px; }
-    .event { padding: 18px 22px; margin-bottom: 16px; }
-    .event::before { left: -26px; }
-      .event-date { font-size: 16px; }
-    .event-text { font-size: 17px; }
-    .episode-header .ep-name { font-size: 28px; }
-    .tab { font-size: 13px; padding: 8px 16px; }
-    .masthead svg { height: 30px; }
-  }
+            .tab {
+                white-space: nowrap;
+                padding: 7px 14px;
+                border-radius: 20px;
+                border: 1.5px solid #d5d5d5;
+                background: var(--card-bg);
+                font-family: var(--font);
+                font-size: 12.5px;
+                font-weight: 600;
+                color: var(--text-mid);
+                cursor: pointer;
+                transition: all 0.2s ease;
+                -webkit-tap-highlight-color: transparent;
+            }
 
-  @media (prefers-reduced-motion: reduce) {
-    .event { opacity: 1; transform: none; transition: none; }
-    html { scroll-behavior: auto; }
-  }
-</style>
-</head>
-<body>
+            .tab:active {
+                transform: scale(0.96);
+            }
 
-<div class="progress-bar" id="progressBar"></div>
+            .tab.active {
+                color: #fff;
+                border-color: var(--tab-color);
+                background: var(--tab-color);
+            }
 
-<header class="masthead">
-  <div class="masthead-inner">
-    <svg viewBox="0 0 159 37" xmlns="http://www.w3.org/2000/svg" fill-rule="nonzero">
-      <path d="M0.133858117,10.2048197 L0.133858117,10.5454902 L0.133858117,35.518724 L0.133858117,35.8593945 L0.471432105,35.8593945 L6.63594649,35.8593945 L6.97352047,35.8593945 L6.97352047,35.518724 L6.97352047,24.0610711 C6.942315,22.9588942 7.08547195,21.8685538 7.39737298,20.82201 C8.31432217,17.852627 10.6873606,15.969799 13.7263781,15.969799 C16.370272,15.969799 17.3211966,17.4140429 17.3211966,20.7238906 L17.3211966,35.518724 L17.3211966,35.8593945 L17.6587706,35.8593945 L23.776438,35.8593945 L24.114012,35.8593945 L24.114012,35.518724 L24.114012,19.464105 C24.114012,12.8642361 21.0503186,9.61803217 15.1841466,9.61803217 C10.8319764,9.61803217 7.67202317,11.8919176 6.09578779,14.9954107 L6.73377405,15.1507993 L6.73377405,10.5454902 L6.73377405,10.2048197 L6.39620006,10.2048197 L0.471432105,10.2048197 L0.133858117,10.2048197 Z" fill="#21418D"/>
-      <path d="M48.9288371,10.2048197 L49.062426,10.64521 L56.6378619,35.6184438 L56.7109524,35.8593945 L56.9606499,35.8593945 L63.849915,35.8593945 L64.102295,35.8593945 L64.1736973,35.6151051 L68.3403248,21.3597826 C68.5103971,20.7767197 68.6682728,20.2346014 68.8099579,19.7474101 C68.8595495,19.5768871 68.9035756,19.425408 68.9415303,19.2947435 C68.9799949,19.1622947 68.9799949,19.1622947 68.9881025,19.1343542 L68.341294,19.1381647 C68.3497651,19.1661427 68.3661475,19.2204068 68.3898272,19.2990879 C68.4293243,19.4303258 68.4748918,19.5822438 68.5259158,19.7529724 C68.6717276,20.2408659 68.8320031,20.781581 69.0018307,21.3601586 L73.1877582,35.6155153 L73.2593706,35.8593945 L73.5114203,35.8593945 L80.348327,35.8593945 L80.5984237,35.8593945 L80.6712656,35.6179459 L88.2053659,10.6447122 L88.3380757,10.2048197 L87.8824273,10.2048197 L81.4754107,10.2048197 L81.2158333,10.2048197 L81.1491617,10.4579901 L76.8282146,26.865794 L76.2765634,29.0118926 L76.9230273,28.988064 C76.9149645,28.9640606 76.8991137,28.9156834 76.8763039,28.8441745 C76.8379758,28.7240163 76.794344,28.5832038 76.7462373,28.4229805 C76.6084699,27.9641348 76.4627278,27.4425084 76.3156385,26.8680633 L71.7503006,10.4976928 L71.6810324,10.2493155 L71.4253509,10.2493155 L65.9387402,10.2493155 L65.6830587,10.2493155 L65.6137905,10.4976928 L61.0503413,26.861001 C60.901322,27.4473768 60.7665827,27.9730434 60.6469979,28.4358014 C60.6051538,28.5977259 60.5681962,28.7402081 60.5364912,28.8620091 C60.5174846,28.9350268 60.5044412,28.9849681 60.4977911,29.0103496 L61.144183,28.9890464 C61.1361795,28.9649789 61.1204531,28.9165361 61.0978114,28.8449604 C61.0597782,28.7247287 61.016442,28.5838412 60.9686103,28.4235412 C60.8316426,27.9645167 60.6863609,27.4427043 60.5392215,26.8680633 L56.2176851,10.4579901 L56.1510134,10.2048197 L55.891436,10.2048197 L49.3852141,10.2048197 L48.9288371,10.2048197 Z" fill="#21418D"/>
-      <path d="M25.7867266,23.0246266 C25.7867255,30.6537804 31.371588,36.4350581 39.4260925,36.4350581 C43.1331797,36.4585201 46.7324436,35.1649417 49.5919626,32.7806689 L49.8056381,32.6025059 L49.6740577,32.3563184 L47.2958834,27.9067445 L47.0964951,27.5336882 L46.7783661,27.8104337 C46.757255,27.8287985 46.712758,27.8659445 46.6460361,27.9191875 C46.532806,28.0095432 46.3996403,28.1106616 46.2477087,28.2198609 C45.8118248,28.533148 45.3146364,28.8468802 44.7656441,29.1396919 C43.2023743,29.9734806 41.5423944,30.472629 39.861494,30.472629 C36.0229632,30.472629 33.1053553,28.0756286 32.7573051,24.1696091 L32.4210878,24.5407908 L49.5064651,24.5407908 L49.8154891,24.5407908 L49.8427254,24.2301458 C49.8473463,24.1774416 49.8553907,24.0828028 49.8657189,23.9563513 C49.8829203,23.7457482 49.9001206,23.5236303 49.9161815,23.3000783 C49.9273014,23.1453017 49.9374842,22.9951419 49.9465247,22.8514012 C49.974414,22.40797 49.9900915,22.0488413 49.9900915,21.8001313 C49.9900915,14.6014973 45.6615683,9.60412725 38.6792962,9.60412725 C31.1014072,9.60412725 25.7669858,15.1555013 25.7867266,23.0246266 Z M43.110403,20.2803237 L43.4384005,20.2803237 L43.4411562,19.5989827 L32.6139872,19.5989827 L32.9461751,20.0002655 C33.5014976,16.9007115 35.5598775,15.0882271 38.5359994,15.0882271 C41.2095239,15.0882271 43.013863,16.8954802 43.1009662,19.9494546 L43.110403,20.2803237 Z" fill="#21418D"/>
-      <path d="M90.6780855,27.526891 L90.4512094,27.8805501 L87.643145,32.2578185 L87.4988845,32.4826947 L87.6814119,32.6772035 C87.7129107,32.7107699 87.771202,32.7693932 87.8559577,32.8494829 C87.9944552,32.9803557 88.1587313,33.1254733 88.348463,33.2812372 C88.8875672,33.7238252 89.524401,34.1655162 90.2563983,34.5773492 C92.3449026,35.752374 94.780749,36.457306 97.5384212,36.457306 C103.379181,36.457306 107.341845,33.1635042 107.341845,28.6079794 C107.341845,24.9955784 105.249746,22.8749453 101.120305,21.0426221 C100.463106,20.7510086 98.3065501,19.8751635 97.9872358,19.7370037 C96.093966,18.9178301 95.3021657,18.2849767 95.3021657,17.4840446 C95.3021657,16.2914311 96.4546083,15.5721183 98.1198751,15.5721183 C100.25293,15.5505265 102.322166,16.2861484 103.968219,17.6500064 L104.295175,17.9209105 L104.484364,17.5390626 L106.766088,12.9337536 L106.872914,12.7181423 L106.706976,12.5447433 C106.610917,12.4443663 106.428223,12.2778705 106.158142,12.0675872 C105.714325,11.7220353 105.181813,11.3776539 104.559937,11.05696 C102.791271,10.1448816 100.65871,9.59856528 98.1612107,9.59856528 C92.4199521,9.59856528 88.3577865,12.5998278 88.3577865,17.2893757 C88.3577865,19.2566836 89.0446871,20.8482612 90.3375416,22.1564588 C91.3691871,23.2003476 92.7055358,24.013154 94.5783214,24.851504 C95.1928389,25.126592 97.2191395,25.9656171 97.5202786,26.0972546 C99.5556064,26.9869611 100.397466,27.6653605 100.397466,28.5579217 C100.397466,29.7087986 99.2054958,30.469848 97.4833071,30.469848 C95.7849984,30.469848 94.1979317,29.97274 92.7662912,29.1427105 C92.2642841,28.8516593 91.8181181,28.5399272 91.4337177,28.2288085 C91.2999336,28.1205289 91.1837003,28.0203512 91.0857437,27.9309546 C91.0283411,27.8785681 90.9906155,27.8422879 90.9732839,27.8247972 L90.6780855,27.526891 Z" fill="#21418D"/>
-      <path d="M111.712549,35.6009323 L111.760357,35.8839652 L112.04381,35.8839652 L134.063503,35.8839652 L134.399579,35.8839652 L134.399579,35.5435101 L134.399579,31.3218671 L134.399579,30.981412 L134.063503,30.981412 L117.125278,30.981412 L117.461329,31.3259793 C117.491391,28.8048597 119.088935,26.9219199 122.885525,24.2398585 C123.418039,23.8636696 125.308312,22.5653413 125.518978,22.4187405 C131.35091,18.3603369 133.868579,15.2650503 133.868579,10.2953615 C133.868579,4.17821122 129.278217,0 122.737745,0 C118.097377,0.0120261202 113.839567,2.605375 111.653286,6.75080556 L111.509814,7.022844 L111.762921,7.19426617 L115.311883,9.59787902 L115.61632,9.80406573 L115.79303,9.47913454 C115.80891,9.44993521 115.843218,9.39056491 115.895766,9.30536136 C115.985004,9.16066869 116.092143,8.99872988 116.216973,8.82388236 C116.574725,8.32278739 117.001033,7.82125971 117.493801,7.35379966 C118.889399,6.02987794 120.527708,5.23903287 122.402171,5.23619871 C125.822388,5.23619909 128.209061,7.44875842 128.209061,10.6358166 C128.209061,13.1597483 126.664912,15.0768712 123.036568,17.730195 C122.430598,18.1733272 120.249202,19.7106843 119.979262,19.9043332 C114.077763,24.1379316 111.465759,27.5165612 111.465759,32.8947696 C111.479287,33.8053413 111.561782,34.708368 111.712549,35.6009323 Z" fill="#DD1F26"/>
-      <path d="M150.087602,22.4972715 L150.423678,22.4972715 L150.450564,21.8163614 L139.810401,21.8163614 L140.083432,22.3553317 L150.696709,7.37530832 L150.087602,7.17679303 L150.087602,22.1568164 L150.087602,22.4972715 Z M134.264791,22.0477452 L134.26515,22.1579419 L134.278593,26.2774483 L134.279701,26.616778 L134.614667,26.616778 L150.450564,26.616778 L150.114488,26.2763229 L150.114488,35.5435101 L150.114488,35.8839652 L150.450564,35.8839652 L155.122019,35.8839652 L155.458095,35.8839652 L155.458095,35.5435101 L155.458095,26.2422774 L155.122019,26.5827324 L158.62393,26.5827324 L158.960006,26.5827324 L158.960006,26.2422774 L158.960006,22.1568164 L158.960006,21.8163614 L158.62393,21.8163614 L155.122019,21.8163614 L155.458095,22.1568164 L155.458095,0.926037811 L155.458095,0.585582733 L155.122019,0.585582733 L149.650703,0.585582733 L149.478286,0.585582733 L149.377719,0.72745659 L134.32824,21.9582352 L134.264791,22.0477452 Z" fill="#DD1F26"/>
-    </svg>
-  </div>
-</header>
+            /* TIMELINE */
+            .timeline-container {
+                padding: 28px 0 48px;
+            }
 
-<section class="hero">
-  <div class="hero-tag">Podcast Series</div>
-  <h1 class="hero-title">The Daveyton muti murders</h1>
-  <p class="hero-subtitle">Timeline of Events</p>
-  <p class="hero-intro">A three-part News24 podcast investigation into the unsolved killings of Jabulani Mntungwa and Wandile Jasop in Daveyton&rsquo;s Yende Park &mdash; and the families still waiting for answers.</p>
-</section>
+            .timeline {
+                position: relative;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 0 20px 0 44px;
+            }
 
-<nav class="tabs" id="tabs">
-  <div class="tabs-inner">
-    <button class="tab active" data-filter="1" style="--tab-color: #dd1f26;">Ep 1 &middot; Socks</button>
-    <button class="tab" data-filter="2" style="--tab-color: #21418d;">Ep 2 &middot; Shoes</button>
-    <button class="tab" data-filter="3" style="--tab-color: #4a4a4a;">Ep 3 &middot; Covenant</button>
-  </div>
-</nav>
+            .timeline::before {
+                content: '';
+                position: absolute;
+                left: 28px;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background: var(--line-color, #d0d0d0);
+                transition: background 0.3s ease;
+            }
 
-<main class="timeline-container">
-  <div class="timeline" id="timeline"></div>
-</main>
+            /* EPISODE HEADER */
+            .episode-header {
+                margin-bottom: 24px;
+                padding-bottom: 14px;
+                border-bottom: 2px solid var(--ep-color);
+            }
 
-<footer class="footer">
-  <div class="footer-inner">
-    <svg viewBox="0 0 159 37" xmlns="http://www.w3.org/2000/svg" fill-rule="nonzero">
-      <path d="M0.133858117,10.2048197 L0.133858117,10.5454902 L0.133858117,35.518724 L0.133858117,35.8593945 L0.471432105,35.8593945 L6.63594649,35.8593945 L6.97352047,35.8593945 L6.97352047,35.518724 L6.97352047,24.0610711 C6.942315,22.9588942 7.08547195,21.8685538 7.39737298,20.82201 C8.31432217,17.852627 10.6873606,15.969799 13.7263781,15.969799 C16.370272,15.969799 17.3211966,17.4140429 17.3211966,20.7238906 L17.3211966,35.518724 L17.3211966,35.8593945 L17.6587706,35.8593945 L23.776438,35.8593945 L24.114012,35.8593945 L24.114012,35.518724 L24.114012,19.464105 C24.114012,12.8642361 21.0503186,9.61803217 15.1841466,9.61803217 C10.8319764,9.61803217 7.67202317,11.8919176 6.09578779,14.9954107 L6.73377405,15.1507993 L6.73377405,10.5454902 L6.73377405,10.2048197 L6.39620006,10.2048197 L0.471432105,10.2048197 L0.133858117,10.2048197 Z" fill="#21418D"/>
-      <path d="M48.9288371,10.2048197 L49.062426,10.64521 L56.6378619,35.6184438 L56.7109524,35.8593945 L56.9606499,35.8593945 L63.849915,35.8593945 L64.102295,35.8593945 L64.1736973,35.6151051 L68.3403248,21.3597826 C68.5103971,20.7767197 68.6682728,20.2346014 68.8099579,19.7474101 C68.8595495,19.5768871 68.9035756,19.425408 68.9415303,19.2947435 C68.9799949,19.1622947 68.9799949,19.1622947 68.9881025,19.1343542 L68.341294,19.1381647 C68.3497651,19.1661427 68.3661475,19.2204068 68.3898272,19.2990879 C68.4293243,19.4303258 68.4748918,19.5822438 68.5259158,19.7529724 C68.6717276,20.2408659 68.8320031,20.781581 69.0018307,21.3601586 L73.1877582,35.6155153 L73.2593706,35.8593945 L73.5114203,35.8593945 L80.348327,35.8593945 L80.5984237,35.8593945 L80.6712656,35.6179459 L88.2053659,10.6447122 L88.3380757,10.2048197 L87.8824273,10.2048197 L81.4754107,10.2048197 L81.2158333,10.2048197 L81.1491617,10.4579901 L76.8282146,26.865794 L76.2765634,29.0118926 L76.9230273,28.988064 C76.9149645,28.9640606 76.8991137,28.9156834 76.8763039,28.8441745 C76.8379758,28.7240163 76.794344,28.5832038 76.7462373,28.4229805 C76.6084699,27.9641348 76.4627278,27.4425084 76.3156385,26.8680633 L71.7503006,10.4976928 L71.6810324,10.2493155 L71.4253509,10.2493155 L65.9387402,10.2493155 L65.6830587,10.2493155 L65.6137905,10.4976928 L61.0503413,26.861001 C60.901322,27.4473768 60.7665827,27.9730434 60.6469979,28.4358014 C60.6051538,28.5977259 60.5681962,28.7402081 60.5364912,28.8620091 C60.5174846,28.9350268 60.5044412,28.9849681 60.4977911,29.0103496 L61.144183,28.9890464 C61.1361795,28.9649789 61.1204531,28.9165361 61.0978114,28.8449604 C61.0597782,28.7247287 61.016442,28.5838412 60.9686103,28.4235412 C60.8316426,27.9645167 60.6863609,27.4427043 60.5392215,26.8680633 L56.2176851,10.4579901 L56.1510134,10.2048197 L55.891436,10.2048197 L49.3852141,10.2048197 L48.9288371,10.2048197 Z" fill="#21418D"/>
-      <path d="M25.7867266,23.0246266 C25.7867255,30.6537804 31.371588,36.4350581 39.4260925,36.4350581 C43.1331797,36.4585201 46.7324436,35.1649417 49.5919626,32.7806689 L49.8056381,32.6025059 L49.6740577,32.3563184 L47.2958834,27.9067445 L47.0964951,27.5336882 L46.7783661,27.8104337 C46.757255,27.8287985 46.712758,27.8659445 46.6460361,27.9191875 C46.532806,28.0095432 46.3996403,28.1106616 46.2477087,28.2198609 C45.8118248,28.533148 45.3146364,28.8468802 44.7656441,29.1396919 C43.2023743,29.9734806 41.5423944,30.472629 39.861494,30.472629 C36.0229632,30.472629 33.1053553,28.0756286 32.7573051,24.1696091 L32.4210878,24.5407908 L49.5064651,24.5407908 L49.8154891,24.5407908 L49.8427254,24.2301458 C49.8473463,24.1774416 49.8553907,24.0828028 49.8657189,23.9563513 C49.8829203,23.7457482 49.9001206,23.5236303 49.9161815,23.3000783 C49.9273014,23.1453017 49.9374842,22.9951419 49.9465247,22.8514012 C49.974414,22.40797 49.9900915,22.0488413 49.9900915,21.8001313 C49.9900915,14.6014973 45.6615683,9.60412725 38.6792962,9.60412725 C31.1014072,9.60412725 25.7669858,15.1555013 25.7867266,23.0246266 Z M43.110403,20.2803237 L43.4384005,20.2803237 L43.4411562,19.5989827 L32.6139872,19.5989827 L32.9461751,20.0002655 C33.5014976,16.9007115 35.5598775,15.0882271 38.5359994,15.0882271 C41.2095239,15.0882271 43.013863,16.8954802 43.1009662,19.9494546 L43.110403,20.2803237 Z" fill="#21418D"/>
-      <path d="M90.6780855,27.526891 L90.4512094,27.8805501 L87.643145,32.2578185 L87.4988845,32.4826947 L87.6814119,32.6772035 C87.7129107,32.7107699 87.771202,32.7693932 87.8559577,32.8494829 C87.9944552,32.9803557 88.1587313,33.1254733 88.348463,33.2812372 C88.8875672,33.7238252 89.524401,34.1655162 90.2563983,34.5773492 C92.3449026,35.752374 94.780749,36.457306 97.5384212,36.457306 C103.379181,36.457306 107.341845,33.1635042 107.341845,28.6079794 C107.341845,24.9955784 105.249746,22.8749453 101.120305,21.0426221 C100.463106,20.7510086 98.3065501,19.8751635 97.9872358,19.7370037 C96.093966,18.9178301 95.3021657,18.2849767 95.3021657,17.4840446 C95.3021657,16.2914311 96.4546083,15.5721183 98.1198751,15.5721183 C100.25293,15.5505265 102.322166,16.2861484 103.968219,17.6500064 L104.295175,17.9209105 L104.484364,17.5390626 L106.766088,12.9337536 L106.872914,12.7181423 L106.706976,12.5447433 C106.610917,12.4443663 106.428223,12.2778705 106.158142,12.0675872 C105.714325,11.7220353 105.181813,11.3776539 104.559937,11.05696 C102.791271,10.1448816 100.65871,9.59856528 98.1612107,9.59856528 C92.4199521,9.59856528 88.3577865,12.5998278 88.3577865,17.2893757 C88.3577865,19.2566836 89.0446871,20.8482612 90.3375416,22.1564588 C91.3691871,23.2003476 92.7055358,24.013154 94.5783214,24.851504 C95.1928389,25.126592 97.2191395,25.9656171 97.5202786,26.0972546 C99.5556064,26.9869611 100.397466,27.6653605 100.397466,28.5579217 C100.397466,29.7087986 99.2054958,30.469848 97.4833071,30.469848 C95.7849984,30.469848 94.1979317,29.97274 92.7662912,29.1427105 C92.2642841,28.8516593 91.8181181,28.5399272 91.4337177,28.2288085 C91.2999336,28.1205289 91.1837003,28.0203512 91.0857437,27.9309546 C91.0283411,27.8785681 90.9906155,27.8422879 90.9732839,27.8247972 L90.6780855,27.526891 Z" fill="#21418D"/>
-      <path d="M111.712549,35.6009323 L111.760357,35.8839652 L112.04381,35.8839652 L134.063503,35.8839652 L134.399579,35.8839652 L134.399579,35.5435101 L134.399579,31.3218671 L134.399579,30.981412 L134.063503,30.981412 L117.125278,30.981412 L117.461329,31.3259793 C117.491391,28.8048597 119.088935,26.9219199 122.885525,24.2398585 C123.418039,23.8636696 125.308312,22.5653413 125.518978,22.4187405 C131.35091,18.3603369 133.868579,15.2650503 133.868579,10.2953615 C133.868579,4.17821122 129.278217,0 122.737745,0 C118.097377,0.0120261202 113.839567,2.605375 111.653286,6.75080556 L111.509814,7.022844 L111.762921,7.19426617 L115.311883,9.59787902 L115.61632,9.80406573 L115.79303,9.47913454 C115.80891,9.44993521 115.843218,9.39056491 115.895766,9.30536136 C115.985004,9.16066869 116.092143,8.99872988 116.216973,8.82388236 C116.574725,8.32278739 117.001033,7.82125971 117.493801,7.35379966 C118.889399,6.02987794 120.527708,5.23903287 122.402171,5.23619871 C125.822388,5.23619909 128.209061,7.44875842 128.209061,10.6358166 C128.209061,13.1597483 126.664912,15.0768712 123.036568,17.730195 C122.430598,18.1733272 120.249202,19.7106843 119.979262,19.9043332 C114.077763,24.1379316 111.465759,27.5165612 111.465759,32.8947696 C111.479287,33.8053413 111.561782,34.708368 111.712549,35.6009323 Z" fill="#DD1F26"/>
-      <path d="M150.087602,22.4972715 L150.423678,22.4972715 L150.450564,21.8163614 L139.810401,21.8163614 L140.083432,22.3553317 L150.696709,7.37530832 L150.087602,7.17679303 L150.087602,22.1568164 L150.087602,22.4972715 Z M134.264791,22.0477452 L134.26515,22.1579419 L134.278593,26.2774483 L134.279701,26.616778 L134.614667,26.616778 L150.450564,26.616778 L150.114488,26.2763229 L150.114488,35.5435101 L150.114488,35.8839652 L150.450564,35.8839652 L155.122019,35.8839652 L155.458095,35.8839652 L155.458095,35.5435101 L155.458095,26.2422774 L155.122019,26.5827324 L158.62393,26.5827324 L158.960006,26.5827324 L158.960006,26.2422774 L158.960006,22.1568164 L158.960006,21.8163614 L158.62393,21.8163614 L155.122019,21.8163614 L155.458095,22.1568164 L155.458095,0.926037811 L155.458095,0.585582733 L155.122019,0.585582733 L149.650703,0.585582733 L149.478286,0.585582733 L149.377719,0.72745659 L134.32824,21.9582352 L134.264791,22.0477452 Z" fill="#DD1F26"/>
-    </svg>
-    <span class="footer-text">The Daveyton muti murders</span>
-  </div>
-</footer>
+            .episode-header .ep-num {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: var(--ep-color);
+                margin-bottom: 3px;
+            }
 
-<script>
-(function() {
-  'use strict';
+            .episode-header .ep-name {
+                font-size: 24px;
+                font-weight: 800;
+                color: var(--n24-dark);
+            }
 
-  var episodes = {
-    1: { name: 'Socks', color: '#dd1f26', rgb: '221,31,38' },
-    2: { name: 'Shoes', color: '#21418d', rgb: '33,65,141' },
-    3: { name: 'Covenant', color: '#4a4a4a', rgb: '74,74,74' }
-  };
+            /* EVENT CARD */
+            .event {
+                position: relative;
+                margin-bottom: 14px;
+                padding: 16px 18px;
+                background: linear-gradient(135deg, rgba(var(--ep-rgb), 0.04), var(--card-bg) 50%);
+                border-radius: 6px;
+                border-left: 3px solid var(--ep-color);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+                opacity: 0;
+                transform: translateY(16px);
+                transition: opacity 0.45s ease, transform 0.45s ease;
+            }
 
-  var events = [
-    // EPISODE 1 — SOCKS
-    {ep:1,date:'30 September 1997',text:'Jabulani Mntungwa born',key:false},
-    {ep:1,date:'Mid-2010s',text:'Jabulani Mntungwa excels at high school in Piet Retief (eMkhondo) \u2014 mathematics 85%, physics 72%',key:false},
-    {ep:1,date:'2014',text:'His mother Masango dies; he moves to Daveyton with father Ndeni',key:false},
-    {ep:1,date:'2016\u201317',text:'Jabulani enrols at Springs College studying marketing management; befriends Wandile Jasop',key:false},
-    {ep:1,date:'25 August 2017',text:'Last seen alive on a payday weekend out with cousin Ronni Makhanya',key:true},
-    {ep:1,date:'26 August 2017',text:'Case 283/8/2017 opened at Daveyton Police Station',key:true},
-    {ep:1,date:'27 August 2017',text:'Jabulani\u2019s body dumped in the wetland on the outskirts of Yende Park',key:true},
-    {ep:1,date:'28 August 2017',text:'Jabulani (20) found murdered and mutilated by a cattle herder',key:true},
-    {ep:1,date:'August\u2013September 2017',text:'Two men of interest questioned by police and released; alleged confession made; police go quiet',key:false},
-    {ep:1,date:'Early 2018',text:'Jabulani\u2019s case goes cold. Approximately ten months of silence from Daveyton SAPS after the murder',key:false},
-    // EPISODE 2 — SHOES
-    {ep:2,date:'30 August 1982',text:'Wandile Jasop born in Boksburg',key:false},
-    {ep:2,date:'Early 2000s',text:'He attends boarding school in Vereeniging and has dreams of becoming a scientist',key:false},
-    {ep:2,date:'2013\u20132017',text:'Wandile works as a security guard, saving money to study at Wits University. He gets accepted, but studying and working simultaneously takes its toll',key:false},
-    {ep:2,date:'2017\u20132018',text:'In the year following Jabulani\u2019s murder, Wandile helps at home and socialises with friends',key:false},
-    {ep:2,date:'14 July 2018',text:'Last seen drinking with friends on a Saturday night',key:true},
-    {ep:2,date:'15 July 2018',text:'Found murdered and mutilated in the same Yende Park. Case 124/7/2018 opened at Daveyton Police Station',key:true},
-    {ep:2,date:'2018',text:'Father Sydney unable to identify him; fingerprints used; suspects Phatwa Bekwa and Xolani Kanjana arrested and charged',key:true},
-    {ep:2,date:'2018 onwards',text:'Whistleblower \u201cCinder\u201d emerges; families of Jabulani and Wandile unite; alleged mastermind \u201cPinto\u201d identified',key:false},
-    // EPISODE 3 — COVENANT
-    {ep:3,date:'2020',text:'Graeme Raubenheimer first visits Daveyton during Covid-19 lockdown; meets \u201cCinder\u201d',key:false},
-    {ep:3,date:'2020\u201323',text:'Gauteng detectives review cases; Phatwa and Xolani appear in Benoni Regional Court',key:false},
-    {ep:3,date:'2023',text:'Phatwa declared a state patient; state withdraws case against Xolani on merits. He is legally cleared and acquitted',key:true},
-    {ep:3,date:'2023\u201325',text:'\u201cPinto\u201d allegations investigated; border incident found unverified; key witness \u201cJohn\u201d \u2014 who allegedly saw a suspect near Yende Park on the night of Jabulani\u2019s murder \u2014 dies',key:false},
-    {ep:3,date:'April 2025',text:'Inquest rules Jabulani\u2019s death caused by unknown person/s. SAPS confirms case closed as undetected \u2014 will be reopened if new information emerges',key:true},
-    {ep:3,date:'October 2025',text:'A Benoni-based teacher is hijacked at gunpoint from his silver VW Polo while waiting to pick up his partner; reports the vehicle stolen',key:true},
-    {ep:3,date:'December 2025',text:'Whistleblower \u201cMary\u201d photographs the same silver VW Polo; believes \u201cPinto\u201d is using it; News24 confirms the original theft report \u2014 hijackers driving it in broad daylight with the original plates unchanged',key:true},
-    {ep:3,date:'Late 2025',text:'News24 returns to Daveyton; families learn of final legal outcomes for the first time; justice remains unserved',key:true}
-  ];
+            .event.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
 
-  var timeline = document.getElementById('timeline');
-  var tabs = document.querySelectorAll('.tab');
-  var progressBar = document.getElementById('progressBar');
-  var observer = null;
+            .event::before {
+                content: '';
+                position: absolute;
+                left: -22px;
+                top: 16px;
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: var(--ep-color);
+                border: 2px solid var(--bg);
+                z-index: 1;
+            }
 
-  function renderEvents(filter) {
-    var epNum = parseInt(filter, 10);
-    var ep = episodes[epNum];
-    var html = '';
+            .event.key {
+                border-left-width: 4px;
+            }
 
-    timeline.style.setProperty('--line-color', ep.color);
+            .event-date {
+                font-size: 15px;
+                font-weight: 700;
+                color: var(--ep-color);
+                margin-bottom: 3px;
+                line-height: 1.3;
+            }
 
-    html += '<div class="episode-header" style="--ep-color: ' + ep.color + ';">';
-    html += '<div class="ep-num">Episode ' + epNum + '</div>';
-    html += '<div class="ep-name">\u201c' + ep.name + '\u201d</div>';
-    html += '</div>';
+            .event-text {
+                font-size: 16px;
+                line-height: 1.55;
+                color: var(--text-mid);
+            }
 
-    events.filter(function(e) { return e.ep === epNum; }).forEach(function(e) {
-      var cls = 'event';
-      if (e.key) cls += ' key';
-      html += '<div class="' + cls + '" style="--ep-color: ' + ep.color + '; --ep-rgb: ' + ep.rgb + ';">';
-      html += '<div class="event-date">' + e.date + '</div>';
-      html += '<div class="event-text">' + e.text + '</div>';
-      html += '</div>';
-    });
+            /* FOOTER */
+            .footer {
+                background: var(--grey-strap);
+                padding: 20px;
+                text-align: center;
+            }
 
-    timeline.innerHTML = html;
+            .footer-inner {
+                max-width: 680px;
+                margin: 0 auto;
+            }
 
-    if (observer) { observer.disconnect(); }
+            .footer svg {
+                height: 20px;
+                width: auto;
+            }
 
-    observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            .footer-text {
+                display: block;
+                font-size: 10px;
+                color: #ccc;
+                margin-top: 6px;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+            }
 
-    document.querySelectorAll('.event').forEach(function(el) {
-      observer.observe(el);
-    });
+            /* DESKTOP */
+            @media (min-width: 680px) {
+                .hero {
+                    padding: 48px 24px 32px;
+                }
 
-    var tabsEl = document.querySelector('.tabs');
-    window.scrollTo({ top: tabsEl.offsetTop, behavior: 'smooth' });
-  }
+                .hero-title {
+                    font-size: 40px;
+                }
 
-  tabs.forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      tabs.forEach(function(t) { t.classList.remove('active'); });
-      tab.classList.add('active');
-      renderEvents(tab.dataset.filter);
-    });
-  });
+                .hero-subtitle {
+                    font-size: 18px;
+                }
 
-  function updateProgress() {
-    var scrollTop = window.scrollY;
-    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    progressBar.style.width = Math.min(progress, 100) + '%';
-  }
-  window.addEventListener('scroll', updateProgress, { passive: true });
+                .hero-intro {
+                    font-size: 15px;
+                    max-width: 540px;
+                }
 
-  renderEvents('1');
-  updateProgress();
-})();
-</script>
+                .timeline {
+                    padding-left: 64px;
+                }
 
-</body>
+                .timeline::before {
+                    left: 36px;
+                }
+
+                .event {
+                    padding: 18px 22px;
+                    margin-bottom: 16px;
+                }
+
+                .event::before {
+                    left: -26px;
+                }
+
+                .event-date {
+                    font-size: 16px;
+                }
+
+                .event-text {
+                    font-size: 17px;
+                }
+
+                .episode-header .ep-name {
+                    font-size: 28px;
+                }
+
+                .tab {
+                    font-size: 13px;
+                    padding: 8px 16px;
+                }
+
+                .masthead svg {
+                    height: 30px;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .event {
+                    opacity: 1;
+                    transform: none;
+                    transition: none;
+                }
+
+                html {
+                    scroll-behavior: auto;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="progress-bar" id="progressBar"></div>
+        <header class="masthead">
+            <div class="masthead-inner">
+                <svg viewBox="0 0 159 37" xmlns="http://www.w3.org/2000/svg" fill-rule="nonzero">
+                    <path d="M0.133858117,10.2048197 L0.133858117,10.5454902 L0.133858117,35.518724 L0.133858117,35.8593945 L0.471432105,35.8593945 L6.63594649,35.8593945 L6.97352047,35.8593945 L6.97352047,35.518724 L6.97352047,24.0610711 C6.942315,22.9588942 7.08547195,21.8685538 7.39737298,20.82201 C8.31432217,17.852627 10.6873606,15.969799 13.7263781,15.969799 C16.370272,15.969799 17.3211966,17.4140429 17.3211966,20.7238906 L17.3211966,35.518724 L17.3211966,35.8593945 L17.6587706,35.8593945 L23.776438,35.8593945 L24.114012,35.8593945 L24.114012,35.518724 L24.114012,19.464105 C24.114012,12.8642361 21.0503186,9.61803217 15.1841466,9.61803217 C10.8319764,9.61803217 7.67202317,11.8919176 6.09578779,14.9954107 L6.73377405,15.1507993 L6.73377405,10.5454902 L6.73377405,10.2048197 L6.39620006,10.2048197 L0.471432105,10.2048197 L0.133858117,10.2048197 Z" fill="#21418D"/>
+                    <path d="M48.9288371,10.2048197 L49.062426,10.64521 L56.6378619,35.6184438 L56.7109524,35.8593945 L56.9606499,35.8593945 L63.849915,35.8593945 L64.102295,35.8593945 L64.1736973,35.6151051 L68.3403248,21.3597826 C68.5103971,20.7767197 68.6682728,20.2346014 68.8099579,19.7474101 C68.8595495,19.5768871 68.9035756,19.425408 68.9415303,19.2947435 C68.9799949,19.1622947 68.9799949,19.1622947 68.9881025,19.1343542 L68.341294,19.1381647 C68.3497651,19.1661427 68.3661475,19.2204068 68.3898272,19.2990879 C68.4293243,19.4303258 68.4748918,19.5822438 68.5259158,19.7529724 C68.6717276,20.2408659 68.8320031,20.781581 69.0018307,21.3601586 L73.1877582,35.6155153 L73.2593706,35.8593945 L73.5114203,35.8593945 L80.348327,35.8593945 L80.5984237,35.8593945 L80.6712656,35.6179459 L88.2053659,10.6447122 L88.3380757,10.2048197 L87.8824273,10.2048197 L81.4754107,10.2048197 L81.2158333,10.2048197 L81.1491617,10.4579901 L76.8282146,26.865794 L76.2765634,29.0118926 L76.9230273,28.988064 C76.9149645,28.9640606 76.8991137,28.9156834 76.8763039,28.8441745 C76.8379758,28.7240163 76.794344,28.5832038 76.7462373,28.4229805 C76.6084699,27.9641348 76.4627278,27.4425084 76.3156385,26.8680633 L71.7503006,10.4976928 L71.6810324,10.2493155 L71.4253509,10.2493155 L65.9387402,10.2493155 L65.6830587,10.2493155 L65.6137905,10.4976928 L61.0503413,26.861001 C60.901322,27.4473768 60.7665827,27.9730434 60.6469979,28.4358014 C60.6051538,28.5977259 60.5681962,28.7402081 60.5364912,28.8620091 C60.5174846,28.9350268 60.5044412,28.9849681 60.4977911,29.0103496 L61.144183,28.9890464 C61.1361795,28.9649789 61.1204531,28.9165361 61.0978114,28.8449604 C61.0597782,28.7247287 61.016442,28.5838412 60.9686103,28.4235412 C60.8316426,27.9645167 60.6863609,27.4427043 60.5392215,26.8680633 L56.2176851,10.4579901 L56.1510134,10.2048197 L55.891436,10.2048197 L49.3852141,10.2048197 L48.9288371,10.2048197 Z" fill="#21418D"/>
+                    <path d="M25.7867266,23.0246266 C25.7867255,30.6537804 31.371588,36.4350581 39.4260925,36.4350581 C43.1331797,36.4585201 46.7324436,35.1649417 49.5919626,32.7806689 L49.8056381,32.6025059 L49.6740577,32.3563184 L47.2958834,27.9067445 L47.0964951,27.5336882 L46.7783661,27.8104337 C46.757255,27.8287985 46.712758,27.8659445 46.6460361,27.9191875 C46.532806,28.0095432 46.3996403,28.1106616 46.2477087,28.2198609 C45.8118248,28.533148 45.3146364,28.8468802 44.7656441,29.1396919 C43.2023743,29.9734806 41.5423944,30.472629 39.861494,30.472629 C36.0229632,30.472629 33.1053553,28.0756286 32.7573051,24.1696091 L32.4210878,24.5407908 L49.5064651,24.5407908 L49.8154891,24.5407908 L49.8427254,24.2301458 C49.8473463,24.1774416 49.8553907,24.0828028 49.8657189,23.9563513 C49.8829203,23.7457482 49.9001206,23.5236303 49.9161815,23.3000783 C49.9273014,23.1453017 49.9374842,22.9951419 49.9465247,22.8514012 C49.974414,22.40797 49.9900915,22.0488413 49.9900915,21.8001313 C49.9900915,14.6014973 45.6615683,9.60412725 38.6792962,9.60412725 C31.1014072,9.60412725 25.7669858,15.1555013 25.7867266,23.0246266 Z M43.110403,20.2803237 L43.4384005,20.2803237 L43.4411562,19.5989827 L32.6139872,19.5989827 L32.9461751,20.0002655 C33.5014976,16.9007115 35.5598775,15.0882271 38.5359994,15.0882271 C41.2095239,15.0882271 43.013863,16.8954802 43.1009662,19.9494546 L43.110403,20.2803237 Z" fill="#21418D"/>
+                    <path d="M90.6780855,27.526891 L90.4512094,27.8805501 L87.643145,32.2578185 L87.4988845,32.4826947 L87.6814119,32.6772035 C87.7129107,32.7107699 87.771202,32.7693932 87.8559577,32.8494829 C87.9944552,32.9803557 88.1587313,33.1254733 88.348463,33.2812372 C88.8875672,33.7238252 89.524401,34.1655162 90.2563983,34.5773492 C92.3449026,35.752374 94.780749,36.457306 97.5384212,36.457306 C103.379181,36.457306 107.341845,33.1635042 107.341845,28.6079794 C107.341845,24.9955784 105.249746,22.8749453 101.120305,21.0426221 C100.463106,20.7510086 98.3065501,19.8751635 97.9872358,19.7370037 C96.093966,18.9178301 95.3021657,18.2849767 95.3021657,17.4840446 C95.3021657,16.2914311 96.4546083,15.5721183 98.1198751,15.5721183 C100.25293,15.5505265 102.322166,16.2861484 103.968219,17.6500064 L104.295175,17.9209105 L104.484364,17.5390626 L106.766088,12.9337536 L106.872914,12.7181423 L106.706976,12.5447433 C106.610917,12.4443663 106.428223,12.2778705 106.158142,12.0675872 C105.714325,11.7220353 105.181813,11.3776539 104.559937,11.05696 C102.791271,10.1448816 100.65871,9.59856528 98.1612107,9.59856528 C92.4199521,9.59856528 88.3577865,12.5998278 88.3577865,17.2893757 C88.3577865,19.2566836 89.0446871,20.8482612 90.3375416,22.1564588 C91.3691871,23.2003476 92.7055358,24.013154 94.5783214,24.851504 C95.1928389,25.126592 97.2191395,25.9656171 97.5202786,26.0972546 C99.5556064,26.9869611 100.397466,27.6653605 100.397466,28.5579217 C100.397466,29.7087986 99.2054958,30.469848 97.4833071,30.469848 C95.7849984,30.469848 94.1979317,29.97274 92.7662912,29.1427105 C92.2642841,28.8516593 91.8181181,28.5399272 91.4337177,28.2288085 C91.2999336,28.1205289 91.1837003,28.0203512 91.0857437,27.9309546 C91.0283411,27.8785681 90.9906155,27.8422879 90.9732839,27.8247972 L90.6780855,27.526891 Z" fill="#21418D"/>
+                    <path d="M111.712549,35.6009323 L111.760357,35.8839652 L112.04381,35.8839652 L134.063503,35.8839652 L134.399579,35.8839652 L134.399579,35.5435101 L134.399579,31.3218671 L134.399579,30.981412 L134.063503,30.981412 L117.125278,30.981412 L117.461329,31.3259793 C117.491391,28.8048597 119.088935,26.9219199 122.885525,24.2398585 C123.418039,23.8636696 125.308312,22.5653413 125.518978,22.4187405 C131.35091,18.3603369 133.868579,15.2650503 133.868579,10.2953615 C133.868579,4.17821122 129.278217,0 122.737745,0 C118.097377,0.0120261202 113.839567,2.605375 111.653286,6.75080556 L111.509814,7.022844 L111.762921,7.19426617 L115.311883,9.59787902 L115.61632,9.80406573 L115.79303,9.47913454 C115.80891,9.44993521 115.843218,9.39056491 115.895766,9.30536136 C115.985004,9.16066869 116.092143,8.99872988 116.216973,8.82388236 C116.574725,8.32278739 117.001033,7.82125971 117.493801,7.35379966 C118.889399,6.02987794 120.527708,5.23903287 122.402171,5.23619871 C125.822388,5.23619909 128.209061,7.44875842 128.209061,10.6358166 C128.209061,13.1597483 126.664912,15.0768712 123.036568,17.730195 C122.430598,18.1733272 120.249202,19.7106843 119.979262,19.9043332 C114.077763,24.1379316 111.465759,27.5165612 111.465759,32.8947696 C111.479287,33.8053413 111.561782,34.708368 111.712549,35.6009323 Z" fill="#DD1F26"/>
+                    <path d="M150.087602,22.4972715 L150.423678,22.4972715 L150.450564,21.8163614 L139.810401,21.8163614 L140.083432,22.3553317 L150.696709,7.37530832 L150.087602,7.17679303 L150.087602,22.1568164 L150.087602,22.4972715 Z M134.264791,22.0477452 L134.26515,22.1579419 L134.278593,26.2774483 L134.279701,26.616778 L134.614667,26.616778 L150.450564,26.616778 L150.114488,26.2763229 L150.114488,35.5435101 L150.114488,35.8839652 L150.450564,35.8839652 L155.122019,35.8839652 L155.458095,35.8839652 L155.458095,35.5435101 L155.458095,26.2422774 L155.122019,26.5827324 L158.62393,26.5827324 L158.960006,26.5827324 L158.960006,26.2422774 L158.960006,22.1568164 L158.960006,21.8163614 L158.62393,21.8163614 L155.122019,21.8163614 L155.458095,22.1568164 L155.458095,0.926037811 L155.458095,0.585582733 L155.122019,0.585582733 L149.650703,0.585582733 L149.478286,0.585582733 L149.377719,0.72745659 L134.32824,21.9582352 L134.264791,22.0477452 Z" fill="#DD1F26"/>
+                </svg>
+            </div>
+        </header>
+        <section class="hero">
+            <div class="hero-tag">Podcast Series</div>
+            <h1 class="hero-title">The Daveyton muti murders</h1>
+            <p class="hero-subtitle">Timeline of Events</p>
+            <p class="hero-intro">A three-part News24 podcast investigation into the unsolved killings of Jabulani Mntungwa and Wandile Jasop in Daveyton &rsquo;s Yende Park &mdash;and the families still waiting for answers.</p>
+        </section>
+        <nav class="tabs" id="tabs">
+            <div class="tabs-inner">
+                <button class="tab active" data-filter="1" style="--tab-color: #dd1f26;">Ep 1 &middot;Socks</button>
+                <button class="tab" data-filter="2" style="--tab-color: #21418d;">Ep 2 &middot;Shoes</button>
+                <button class="tab" data-filter="3" style="--tab-color: #4a4a4a;">Ep 3 &middot;Covenant</button>
+            </div>
+        </nav>
+        <main class="timeline-container">
+            <div class="timeline" id="timeline"></div>
+        </main>
+        <footer class="footer">
+            <div class="footer-inner">
+                <svg viewBox="0 0 159 37" xmlns="http://www.w3.org/2000/svg" fill-rule="nonzero">
+                    <path d="M0.133858117,10.2048197 L0.133858117,10.5454902 L0.133858117,35.518724 L0.133858117,35.8593945 L0.471432105,35.8593945 L6.63594649,35.8593945 L6.97352047,35.8593945 L6.97352047,35.518724 L6.97352047,24.0610711 C6.942315,22.9588942 7.08547195,21.8685538 7.39737298,20.82201 C8.31432217,17.852627 10.6873606,15.969799 13.7263781,15.969799 C16.370272,15.969799 17.3211966,17.4140429 17.3211966,20.7238906 L17.3211966,35.518724 L17.3211966,35.8593945 L17.6587706,35.8593945 L23.776438,35.8593945 L24.114012,35.8593945 L24.114012,35.518724 L24.114012,19.464105 C24.114012,12.8642361 21.0503186,9.61803217 15.1841466,9.61803217 C10.8319764,9.61803217 7.67202317,11.8919176 6.09578779,14.9954107 L6.73377405,15.1507993 L6.73377405,10.5454902 L6.73377405,10.2048197 L6.39620006,10.2048197 L0.471432105,10.2048197 L0.133858117,10.2048197 Z" fill="#21418D"/>
+                    <path d="M48.9288371,10.2048197 L49.062426,10.64521 L56.6378619,35.6184438 L56.7109524,35.8593945 L56.9606499,35.8593945 L63.849915,35.8593945 L64.102295,35.8593945 L64.1736973,35.6151051 L68.3403248,21.3597826 C68.5103971,20.7767197 68.6682728,20.2346014 68.8099579,19.7474101 C68.8595495,19.5768871 68.9035756,19.425408 68.9415303,19.2947435 C68.9799949,19.1622947 68.9799949,19.1622947 68.9881025,19.1343542 L68.341294,19.1381647 C68.3497651,19.1661427 68.3661475,19.2204068 68.3898272,19.2990879 C68.4293243,19.4303258 68.4748918,19.5822438 68.5259158,19.7529724 C68.6717276,20.2408659 68.8320031,20.781581 69.0018307,21.3601586 L73.1877582,35.6155153 L73.2593706,35.8593945 L73.5114203,35.8593945 L80.348327,35.8593945 L80.5984237,35.8593945 L80.6712656,35.6179459 L88.2053659,10.6447122 L88.3380757,10.2048197 L87.8824273,10.2048197 L81.4754107,10.2048197 L81.2158333,10.2048197 L81.1491617,10.4579901 L76.8282146,26.865794 L76.2765634,29.0118926 L76.9230273,28.988064 C76.9149645,28.9640606 76.8991137,28.9156834 76.8763039,28.8441745 C76.8379758,28.7240163 76.794344,28.5832038 76.7462373,28.4229805 C76.6084699,27.9641348 76.4627278,27.4425084 76.3156385,26.8680633 L71.7503006,10.4976928 L71.6810324,10.2493155 L71.4253509,10.2493155 L65.9387402,10.2493155 L65.6830587,10.2493155 L65.6137905,10.4976928 L61.0503413,26.861001 C60.901322,27.4473768 60.7665827,27.9730434 60.6469979,28.4358014 C60.6051538,28.5977259 60.5681962,28.7402081 60.5364912,28.8620091 C60.5174846,28.9350268 60.5044412,28.9849681 60.4977911,29.0103496 L61.144183,28.9890464 C61.1361795,28.9649789 61.1204531,28.9165361 61.0978114,28.8449604 C61.0597782,28.7247287 61.016442,28.5838412 60.9686103,28.4235412 C60.8316426,27.9645167 60.6863609,27.4427043 60.5392215,26.8680633 L56.2176851,10.4579901 L56.1510134,10.2048197 L55.891436,10.2048197 L49.3852141,10.2048197 L48.9288371,10.2048197 Z" fill="#21418D"/>
+                    <path d="M25.7867266,23.0246266 C25.7867255,30.6537804 31.371588,36.4350581 39.4260925,36.4350581 C43.1331797,36.4585201 46.7324436,35.1649417 49.5919626,32.7806689 L49.8056381,32.6025059 L49.6740577,32.3563184 L47.2958834,27.9067445 L47.0964951,27.5336882 L46.7783661,27.8104337 C46.757255,27.8287985 46.712758,27.8659445 46.6460361,27.9191875 C46.532806,28.0095432 46.3996403,28.1106616 46.2477087,28.2198609 C45.8118248,28.533148 45.3146364,28.8468802 44.7656441,29.1396919 C43.2023743,29.9734806 41.5423944,30.472629 39.861494,30.472629 C36.0229632,30.472629 33.1053553,28.0756286 32.7573051,24.1696091 L32.4210878,24.5407908 L49.5064651,24.5407908 L49.8154891,24.5407908 L49.8427254,24.2301458 C49.8473463,24.1774416 49.8553907,24.0828028 49.8657189,23.9563513 C49.8829203,23.7457482 49.9001206,23.5236303 49.9161815,23.3000783 C49.9273014,23.1453017 49.9374842,22.9951419 49.9465247,22.8514012 C49.974414,22.40797 49.9900915,22.0488413 49.9900915,21.8001313 C49.9900915,14.6014973 45.6615683,9.60412725 38.6792962,9.60412725 C31.1014072,9.60412725 25.7669858,15.1555013 25.7867266,23.0246266 Z M43.110403,20.2803237 L43.4384005,20.2803237 L43.4411562,19.5989827 L32.6139872,19.5989827 L32.9461751,20.0002655 C33.5014976,16.9007115 35.5598775,15.0882271 38.5359994,15.0882271 C41.2095239,15.0882271 43.013863,16.8954802 43.1009662,19.9494546 L43.110403,20.2803237 Z" fill="#21418D"/>
+                    <path d="M90.6780855,27.526891 L90.4512094,27.8805501 L87.643145,32.2578185 L87.4988845,32.4826947 L87.6814119,32.6772035 C87.7129107,32.7107699 87.771202,32.7693932 87.8559577,32.8494829 C87.9944552,32.9803557 88.1587313,33.1254733 88.348463,33.2812372 C88.8875672,33.7238252 89.524401,34.1655162 90.2563983,34.5773492 C92.3449026,35.752374 94.780749,36.457306 97.5384212,36.457306 C103.379181,36.457306 107.341845,33.1635042 107.341845,28.6079794 C107.341845,24.9955784 105.249746,22.8749453 101.120305,21.0426221 C100.463106,20.7510086 98.3065501,19.8751635 97.9872358,19.7370037 C96.093966,18.9178301 95.3021657,18.2849767 95.3021657,17.4840446 C95.3021657,16.2914311 96.4546083,15.5721183 98.1198751,15.5721183 C100.25293,15.5505265 102.322166,16.2861484 103.968219,17.6500064 L104.295175,17.9209105 L104.484364,17.5390626 L106.766088,12.9337536 L106.872914,12.7181423 L106.706976,12.5447433 C106.610917,12.4443663 106.428223,12.2778705 106.158142,12.0675872 C105.714325,11.7220353 105.181813,11.3776539 104.559937,11.05696 C102.791271,10.1448816 100.65871,9.59856528 98.1612107,9.59856528 C92.4199521,9.59856528 88.3577865,12.5998278 88.3577865,17.2893757 C88.3577865,19.2566836 89.0446871,20.8482612 90.3375416,22.1564588 C91.3691871,23.2003476 92.7055358,24.013154 94.5783214,24.851504 C95.1928389,25.126592 97.2191395,25.9656171 97.5202786,26.0972546 C99.5556064,26.9869611 100.397466,27.6653605 100.397466,28.5579217 C100.397466,29.7087986 99.2054958,30.469848 97.4833071,30.469848 C95.7849984,30.469848 94.1979317,29.97274 92.7662912,29.1427105 C92.2642841,28.8516593 91.8181181,28.5399272 91.4337177,28.2288085 C91.2999336,28.1205289 91.1837003,28.0203512 91.0857437,27.9309546 C91.0283411,27.8785681 90.9906155,27.8422879 90.9732839,27.8247972 L90.6780855,27.526891 Z" fill="#21418D"/>
+                    <path d="M111.712549,35.6009323 L111.760357,35.8839652 L112.04381,35.8839652 L134.063503,35.8839652 L134.399579,35.8839652 L134.399579,35.5435101 L134.399579,31.3218671 L134.399579,30.981412 L134.063503,30.981412 L117.125278,30.981412 L117.461329,31.3259793 C117.491391,28.8048597 119.088935,26.9219199 122.885525,24.2398585 C123.418039,23.8636696 125.308312,22.5653413 125.518978,22.4187405 C131.35091,18.3603369 133.868579,15.2650503 133.868579,10.2953615 C133.868579,4.17821122 129.278217,0 122.737745,0 C118.097377,0.0120261202 113.839567,2.605375 111.653286,6.75080556 L111.509814,7.022844 L111.762921,7.19426617 L115.311883,9.59787902 L115.61632,9.80406573 L115.79303,9.47913454 C115.80891,9.44993521 115.843218,9.39056491 115.895766,9.30536136 C115.985004,9.16066869 116.092143,8.99872988 116.216973,8.82388236 C116.574725,8.32278739 117.001033,7.82125971 117.493801,7.35379966 C118.889399,6.02987794 120.527708,5.23903287 122.402171,5.23619871 C125.822388,5.23619909 128.209061,7.44875842 128.209061,10.6358166 C128.209061,13.1597483 126.664912,15.0768712 123.036568,17.730195 C122.430598,18.1733272 120.249202,19.7106843 119.979262,19.9043332 C114.077763,24.1379316 111.465759,27.5165612 111.465759,32.8947696 C111.479287,33.8053413 111.561782,34.708368 111.712549,35.6009323 Z" fill="#DD1F26"/>
+                    <path d="M150.087602,22.4972715 L150.423678,22.4972715 L150.450564,21.8163614 L139.810401,21.8163614 L140.083432,22.3553317 L150.696709,7.37530832 L150.087602,7.17679303 L150.087602,22.1568164 L150.087602,22.4972715 Z M134.264791,22.0477452 L134.26515,22.1579419 L134.278593,26.2774483 L134.279701,26.616778 L134.614667,26.616778 L150.450564,26.616778 L150.114488,26.2763229 L150.114488,35.5435101 L150.114488,35.8839652 L150.450564,35.8839652 L155.122019,35.8839652 L155.458095,35.8839652 L155.458095,35.5435101 L155.458095,26.2422774 L155.122019,26.5827324 L158.62393,26.5827324 L158.960006,26.5827324 L158.960006,26.2422774 L158.960006,22.1568164 L158.960006,21.8163614 L158.62393,21.8163614 L155.122019,21.8163614 L155.458095,22.1568164 L155.458095,0.926037811 L155.458095,0.585582733 L155.122019,0.585582733 L149.650703,0.585582733 L149.478286,0.585582733 L149.377719,0.72745659 L134.32824,21.9582352 L134.264791,22.0477452 Z" fill="#DD1F26"/>
+                </svg>
+                <span class="footer-text">The Daveyton muti murders</span>
+            </div>
+        </footer>
+        <script>
+            (function() {
+                'use strict';
+
+                var episodes = {
+                    1: {
+                        name: 'Socks',
+                        color: '#dd1f26',
+                        rgb: '221,31,38'
+                    },
+                    2: {
+                        name: 'Shoes',
+                        color: '#21418d',
+                        rgb: '33,65,141'
+                    },
+                    3: {
+                        name: 'Covenant',
+                        color: '#4a4a4a',
+                        rgb: '74,74,74'
+                    }
+                };
+
+                var events = [// EPISODE 1 — SOCKS
+                {
+                    ep: 1,
+                    date: '30 September 1997',
+                    text: 'Jabulani Mntungwa born',
+                    key: false
+                }, {
+                    ep: 1,
+                    date: 'Mid-2010s',
+                    text: 'Jabulani Mntungwa excels at high school in Piet Retief (eMkhondo) \u2014 mathematics 85%, physics 72%',
+                    key: false
+                }, {
+                    ep: 1,
+                    date: '2014',
+                    text: 'His mother Masango dies; he moves to Daveyton with father Ndeni',
+                    key: false
+                }, {
+                    ep: 1,
+                    date: '2016\u201317',
+                    text: 'Jabulani enrols at Springs College studying marketing management; befriends Wandile Jasop',
+                    key: false
+                }, {
+                    ep: 1,
+                    date: '25 August 2017',
+                    text: 'Last seen alive on a payday weekend out with cousin Ronni Makhanya',
+                    key: true
+                }, {
+                    ep: 1,
+                    date: '26 August 2017',
+                    text: 'Case 283/8/2017 opened at Daveyton Police Station',
+                    key: true
+                }, {
+                    ep: 1,
+                    date: '27 August 2017',
+                    text: 'Jabulani\u2019s body dumped in the wetland on the outskirts of Yende Park',
+                    key: true
+                }, {
+                    ep: 1,
+                    date: '28 August 2017',
+                    text: 'Jabulani (20) found murdered and mutilated by a cattle herder',
+                    key: true
+                }, {
+                    ep: 1,
+                    date: 'August\u2013September 2017',
+                    text: 'Two men of interest questioned by police and released; alleged confession made; police go quiet',
+                    key: false
+                }, {
+                    ep: 1,
+                    date: 'Early 2018',
+                    text: 'Jabulani\u2019s case goes cold. Approximately ten months of silence from Daveyton SAPS after the murder',
+                    key: false
+                }, // EPISODE 2 — SHOES
+                {
+                    ep: 2,
+                    date: '30 August 1982',
+                    text: 'Wandile Jasop born in Boksburg',
+                    key: false
+                }, {
+                    ep: 2,
+                    date: 'Early 2000s',
+                    text: 'He attends boarding school in Vereeniging and has dreams of becoming a scientist',
+                    key: false
+                }, {
+                    ep: 2,
+                    date: '2013\u20132017',
+                    text: 'Wandile works as a security guard, saving money to study at Wits University. He gets accepted, but studying and working simultaneously takes its toll',
+                    key: false
+                }, {
+                    ep: 2,
+                    date: '2017\u20132018',
+                    text: 'In the year following Jabulani\u2019s murder, Wandile helps at home and socialises with friends',
+                    key: false
+                }, {
+                    ep: 2,
+                    date: '14 July 2018',
+                    text: 'Last seen drinking with friends on a Saturday night',
+                    key: true
+                }, {
+                    ep: 2,
+                    date: '15 July 2018',
+                    text: 'Found murdered and mutilated in the same Yende Park. Case 124/7/2018 opened at Daveyton Police Station',
+                    key: true
+                }, {
+                    ep: 2,
+                    date: '2018',
+                    text: 'Father Sydney unable to identify him; fingerprints used; suspects Phatwa Bekwa and Xolani Kanjana arrested and charged',
+                    key: true
+                }, {
+                    ep: 2,
+                    date: '2018 onwards',
+                    text: 'Whistleblower \u201cCinder\u201d emerges; families of Jabulani and Wandile unite; alleged mastermind \u201cPinto\u201d identified',
+                    key: false
+                }, // EPISODE 3 — COVENANT
+                {
+                    ep: 3,
+                    date: '2020',
+                    text: 'Graeme Raubenheimer first visits Daveyton during Covid-19 lockdown; meets \u201cCinder\u201d',
+                    key: false
+                }, {
+                    ep: 3,
+                    date: '2020\u201323',
+                    text: 'Gauteng detectives review cases; Phatwa and Xolani appear in Benoni Regional Court',
+                    key: false
+                }, {
+                    ep: 3,
+                    date: '2023',
+                    text: 'Phatwa declared a state patient; state withdraws case against Xolani on merits. He is legally cleared and acquitted',
+                    key: true
+                }, {
+                    ep: 3,
+                    date: '2023\u201325',
+                    text: '\u201cPinto\u201d allegations investigated; border incident found unverified; key witness \u201cJohn\u201d \u2014 who allegedly saw a suspect near Yende Park on the night of Jabulani\u2019s murder \u2014 dies',
+                    key: false
+                }, {
+                    ep: 3,
+                    date: 'April 2025',
+                    text: 'Inquest rules Jabulani\u2019s death caused by unknown person/s. SAPS confirms case closed as undetected \u2014 will be reopened if new information emerges',
+                    key: true
+                }, {
+                    ep: 3,
+                    date: 'October 2025',
+                    text: 'A Benoni-based teacher is hijacked at gunpoint from his silver VW Polo while waiting to pick up his partner; reports the vehicle stolen',
+                    key: true
+                }, {
+                    ep: 3,
+                    date: 'December 2025',
+                    text: 'Whistleblower \u201cMary\u201d photographs the same silver VW Polo; believes \u201cPinto\u201d is using it; News24 confirms the original theft report \u2014 hijackers driving it in broad daylight with the original plates unchanged',
+                    key: true
+                }, {
+                    ep: 3,
+                    date: 'Late 2025',
+                    text: 'News24 returns to Daveyton; families learn of final legal outcomes for the first time; justice remains unserved',
+                    key: true
+                }];
+
+                var timeline = document.getElementById('timeline');
+                var tabs = document.querySelectorAll('.tab');
+                var progressBar = document.getElementById('progressBar');
+                var observer = null;
+
+                var isFirstRender = true;
+
+                function renderEvents(filter) {
+                    var epNum = parseInt(filter, 10);
+                    var ep = episodes[epNum];
+                    var html = '';
+
+                    timeline.style.setProperty('--line-color', ep.color);
+
+                    html += '<div class="episode-header" style="--ep-color: ' + ep.color + ';">';
+                    html += '<div class="ep-num">Episode ' + epNum + '</div>';
+                    html += '<div class="ep-name">\u201c' + ep.name + '\u201d</div>';
+                    html += '</div>';
+
+                    events.filter(function(e) {
+                        return e.ep === epNum;
+                    }).forEach(function(e) {
+                        var cls = 'event';
+                        if (e.key)
+                            cls += ' key';
+                        html += '<div class="' + cls + '" style="--ep-color: ' + ep.color + '; --ep-rgb: ' + ep.rgb + ';">';
+                        html += '<div class="event-date">' + e.date + '</div>';
+                        html += '<div class="event-text">' + e.text + '</div>';
+                        html += '</div>';
+                    });
+
+                    timeline.innerHTML = html;
+
+                    if (observer) {
+                        observer.disconnect();
+                    }
+
+                    observer = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('visible');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }
+                    ,{
+                        threshold: 0.1,
+                        rootMargin: '0px 0px -40px 0px'
+                    });
+
+                    document.querySelectorAll('.event').forEach(function(el) {
+                        observer.observe(el);
+                    });
+
+                    if (!isFirstRender) {
+                        var tabsEl = document.querySelector('.tabs');
+                        window.scrollTo({
+                            top: tabsEl.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                    isFirstRender = false;
+                }
+
+                tabs.forEach(function(tab) {
+                    tab.addEventListener('click', function() {
+                        tabs.forEach(function(t) {
+                            t.classList.remove('active');
+                        });
+                        tab.classList.add('active');
+                        renderEvents(tab.dataset.filter);
+                    });
+                });
+
+                function updateProgress() {
+                    var scrollTop = window.scrollY;
+                    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                    progressBar.style.width = Math.min(progress, 100) + '%';
+                }
+                window.addEventListener('scroll', updateProgress, {
+                    passive: true
+                });
+
+                renderEvents('1');
+                updateProgress();
+            }
+            )();
+        </script>
+    </body>
 </html>
